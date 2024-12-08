@@ -423,18 +423,18 @@ void BLDCMotor::move(float new_target) {
 
   // upgrade the current based voltage limit
   switch (controller) {
-    // case MotionControlType::torque:
-    //   if(torque_controller == TorqueControlType::voltage){ // if voltage torque control
-    //     if(!_isset(phase_resistance))  voltage.q = target;
-    //     else  voltage.q =  target*phase_resistance + voltage_bemf;
-    //     voltage.q = _constrain(voltage.q, -voltage_limit, voltage_limit);
-    //     // set d-component (lag compensation if known inductance)
-    //     if(!_isset(phase_inductance)) voltage.d = 0;
-    //     else voltage.d = _constrain( -target*shaft_velocity*pole_pairs*phase_inductance, -voltage_limit, voltage_limit);
-    //   }else{
-    //     current_sp = target; // if current/foc_current torque control
-    //   }
-    //   break;
+    case MotionControlType::torque:
+      if(torque_controller == TorqueControlType::voltage){ // if voltage torque control
+        if(!_isset(phase_resistance))  voltage.q = target;
+        else  voltage.q =  target*phase_resistance + voltage_bemf;
+        voltage.q = _constrain(voltage.q, -voltage_limit, voltage_limit);
+        // set d-component (lag compensation if known inductance)
+        if(!_isset(phase_inductance)) voltage.d = 0;
+        else voltage.d = _constrain( -target*shaft_velocity*pole_pairs*phase_inductance, -voltage_limit, voltage_limit);
+      }else{
+        current_sp = target; // if current/foc_current torque control
+      }
+      break;
     // case MotionControlType::angle:
     //   // TODO sensor precision: this calculation is not numerically precise. The target value cannot express precise positions when
     //   //                        the angles are large. This results in not being able to command small changes at high position values.

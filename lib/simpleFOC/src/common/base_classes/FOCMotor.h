@@ -25,9 +25,9 @@
  *  Motiron control type
  */
 enum MotionControlType : uint8_t {
-  // torque            = 0x00,     //!< Torque control
-  // velocity          = 0x01,     //!< Velocity motion control
-  // angle             = 0x02,     //!< Position/angle motion control
+  torque            = 0x00,     //!< Torque control
+  velocity          = 0x01,     //!< Velocity motion control
+  angle             = 0x02,     //!< Position/angle motion control
   velocity_openloop = 0x03,
   angle_openloop    = 0x04
 };
